@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,60 +7,33 @@
 
 <style>
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
 html, body {
+    margin: 0;
+    padding: 0;
     width: 100%;
-    height: 100%;
-    overflow: hidden;
+    min-height: 100%;
+    font-family: Georgia, "Times New Roman", serif;
+    overflow-x: hidden;
 }
 
 body {
-    font-family: Georgia, serif;
-    background:
-        radial-gradient(circle at 50% 20%, #253d70, transparent 35%),
-        linear-gradient(180deg, #081226, #111f3c 60%, #050b16);
+    background: linear-gradient(
+        to bottom,
+        #071329 0%,
+        #102650 45%,
+        #182e1b 100%
+    );
     color: white;
 }
 
 /* =========================
-   ESTRELLAS
-========================= */
-
-#stars {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-}
-
-.star {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: white;
-    animation: brillo 2s infinite alternate;
-}
-
-@keyframes brillo {
-    from {
-        opacity: .2;
-        transform: scale(.6);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1.4);
-    }
-}
-
-/* =========================
    PANTALLA INICIAL
-========================= */
+   ========================= */
 
-.start {
+#inicio {
     position: fixed;
     inset: 0;
     z-index: 100;
@@ -70,639 +42,478 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 25px;
-
     background:
-        radial-gradient(circle, #263e73, #060c19 75%);
-
-    transition: 1.5s;
+        radial-gradient(circle at 50% 30%, rgba(255,220,80,.18), transparent 30%),
+        linear-gradient(to bottom, #061127, #10234a);
+    transition: opacity 1.2s ease, visibility 1.2s ease;
 }
 
-.start.ocultar {
+#inicio.oculto {
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
 }
 
-.start h1 {
-    font-size: clamp(2.3rem, 10vw, 4.5rem);
-    color: #ffe56b;
-
+#inicio h1 {
+    font-size: clamp(2rem, 8vw, 4rem);
+    margin: 0 20px 15px;
+    color: #ffe76a;
     text-shadow:
-        0 0 10px #ffe56b,
-        0 0 30px #ffc400;
-
-    margin-bottom: 15px;
+        0 0 10px rgba(255,220,80,.8),
+        0 0 25px rgba(255,200,50,.5);
 }
 
-.start p {
+#inicio p {
     font-size: 1.2rem;
-    margin-bottom: 30px;
+    margin: 0 20px 30px;
+    color: #fff8cf;
 }
 
-.boton {
+#botonAbrir {
     border: none;
     border-radius: 50px;
-    padding: 17px 35px;
-
+    padding: 16px 30px;
     font-size: 1.1rem;
     font-weight: bold;
-
-    background: linear-gradient(135deg, #fff06b, #ffbd00);
-    color: #533900;
-
+    color: #6b4a00;
+    background: #ffd83d;
     cursor: pointer;
-
     box-shadow:
-        0 0 15px #ffd83d,
-        0 0 40px rgba(255,210,50,.5);
-
-    transition: .3s;
+        0 0 15px rgba(255,216,61,.7),
+        0 8px 25px rgba(0,0,0,.35);
+    transition: transform .3s ease, box-shadow .3s ease;
 }
 
-.boton:hover {
+#botonAbrir:hover {
     transform: scale(1.08);
+    box-shadow:
+        0 0 25px rgba(255,216,61,.9),
+        0 10px 30px rgba(0,0,0,.4);
 }
 
 /* =========================
-   ESCENA
-========================= */
+   ESCENA PRINCIPAL
+   ========================= */
 
-.scene {
+#escena {
+    min-height: 100vh;
     position: relative;
-    width: 100%;
-    height: 100vh;
+    padding: 30px 15px 80px;
+    overflow: hidden;
 }
 
 /* Luna */
 
-.moon {
-    position: absolute;
-
+.luna {
+    position: fixed;
+    top: 45px;
+    right: 8%;
     width: 85px;
     height: 85px;
-
-    right: 10%;
-    top: 7%;
-
     border-radius: 50%;
-
-    background: #fff4ad;
-
+    background: #fff6bd;
     box-shadow:
-        0 0 25px #fff4ad,
-        0 0 70px rgba(255,240,150,.5);
+        0 0 20px #fff3a0,
+        0 0 60px rgba(255,244,180,.4);
+    z-index: 1;
 }
 
-/* Texto */
-
-.intro {
+.luna::after {
+    content: "";
     position: absolute;
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    background: #071329;
+    left: 25px;
+    top: -10px;
+}
 
-    top: 8%;
-    left: 50%;
+/* Estrellas */
 
-    transform: translateX(-50%);
+.estrellas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
 
-    width: 90%;
+.estrella {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 0 7px white;
+    animation: parpadear 2s infinite alternate;
+}
 
+@keyframes parpadear {
+    from { opacity: .25; transform: scale(.7); }
+    to { opacity: 1; transform: scale(1.5); }
+}
+
+/* =========================
+   TÍTULO
+   ========================= */
+
+.titulo {
+    position: relative;
+    z-index: 10;
     text-align: center;
-
-    opacity: 0;
-
-    animation: aparecer 2s 1s forwards;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
-.intro h2 {
-    color: #ffe66b;
-
-    font-size:
-        clamp(1.5rem, 5vw, 2.5rem);
-
+.titulo h2 {
+    margin: 0;
+    font-size: clamp(2rem, 7vw, 3.5rem);
+    color: #ffe56b;
     text-shadow:
-        0 0 15px rgba(255,220,70,.8);
+        0 0 10px rgba(255,215,70,.7),
+        0 0 25px rgba(255,215,70,.4);
 }
 
-@keyframes aparecer {
-    to {
-        opacity: 1;
-    }
+.titulo p {
+    margin-top: 8px;
+    font-size: 1rem;
+    color: #fff9d0;
 }
 
 /* =========================
    RAMO
-========================= */
+   ========================= */
 
-.bouquet {
-    position: absolute;
-
-    left: 50%;
-    bottom: 12%;
-
-    width: 330px;
-    height: 440px;
-
-    transform: translateX(-50%);
+.ramo {
+    position: relative;
+    z-index: 5;
+    width: min(650px, 100%);
+    height: 500px;
+    margin: 0 auto;
 }
 
 /* Tallos */
 
-.stem {
+.tallo {
     position: absolute;
-
-    bottom: 25px;
-    left: 50%;
-
     width: 7px;
-    height: 0;
-
-    background:
-        linear-gradient(
-            90deg,
-            #174d29,
-            #55a94d,
-            #174d29
-        );
-
+    height: 280px;
+    bottom: 35px;
+    left: 50%;
+    transform-origin: bottom center;
+    background: linear-gradient(to right, #174b24, #3e8c38, #1b5527);
     border-radius: 10px;
-
-    transform-origin: bottom;
-
-    animation: crecer 1.5s forwards;
+    box-shadow: 0 0 5px rgba(50,130,50,.5);
 }
 
-.stem:nth-child(1) {
-    transform: translateX(-50%) rotate(-25deg);
-    animation-delay: .5s;
-}
+.tallo:nth-child(1) { transform: rotate(-42deg); }
+.tallo:nth-child(2) { transform: rotate(-32deg); }
+.tallo:nth-child(3) { transform: rotate(-22deg); }
+.tallo:nth-child(4) { transform: rotate(-12deg); }
+.tallo:nth-child(5) { transform: rotate(0deg); }
+.tallo:nth-child(6) { transform: rotate(12deg); }
+.tallo:nth-child(7) { transform: rotate(22deg); }
+.tallo:nth-child(8) { transform: rotate(32deg); }
+.tallo:nth-child(9) { transform: rotate(42deg); }
+.tallo:nth-child(10) { transform: rotate(-55deg); }
+.tallo:nth-child(11) { transform: rotate(55deg); }
 
-.stem:nth-child(2) {
-    transform: translateX(-50%) rotate(-12deg);
-    animation-delay: .8s;
-}
+/* Flores */
 
-.stem:nth-child(3) {
-    transform: translateX(-50%) rotate(0);
-    animation-delay: 1.1s;
-}
-
-.stem:nth-child(4) {
-    transform: translateX(-50%) rotate(13deg);
-    animation-delay: 1.4s;
-}
-
-.stem:nth-child(5) {
-    transform: translateX(-50%) rotate(25deg);
-    animation-delay: 1.7s;
-}
-
-@keyframes crecer {
-    to {
-        height: 330px;
-    }
-}
-
-/* =========================
-   FLORES
-========================= */
-
-.flower {
+.flor {
     position: absolute;
-
-    width: 95px;
-    height: 95px;
-
-    transform: scale(0);
-
-    animation:
-        florecer 1s forwards,
-        mover 4s 5s ease-in-out infinite;
+    width: 105px;
+    height: 105px;
+    z-index: 8;
+    animation: balanceo 4s ease-in-out infinite;
 }
 
-.flower:nth-of-type(6) {
-    top: 20px;
-    left: 15px;
-    animation-delay: 2s, 4s;
+.flor:nth-of-type(12) { left: 3%; top: 125px; animation-delay: .2s; }
+.flor:nth-of-type(13) { left: 13%; top: 70px; animation-delay: .5s; }
+.flor:nth-of-type(14) { left: 27%; top: 35px; animation-delay: .8s; }
+.flor:nth-of-type(15) { left: 42%; top: 10px; animation-delay: .3s; }
+.flor:nth-of-type(16) { left: 57%; top: 35px; animation-delay: .7s; }
+.flor:nth-of-type(17) { left: 71%; top: 70px; animation-delay: .4s; }
+.flor:nth-of-type(18) { left: 82%; top: 125px; animation-delay: .9s; }
+.flor:nth-of-type(19) { left: 20%; top: 175px; animation-delay: .6s; }
+.flor:nth-of-type(20) { left: 64%; top: 175px; animation-delay: .2s; }
+.flor:nth-of-type(21) { left: 42%; top: 150px; animation-delay: .8s; }
+
+@keyframes balanceo {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(3deg); }
 }
 
-.flower:nth-of-type(7) {
-    top: 0;
-    left: 110px;
-    animation-delay: 2.5s, 4.5s;
-}
-
-.flower:nth-of-type(8) {
-    top: 20px;
-    right: 10px;
-    animation-delay: 3s, 5s;
-}
-
-.flower:nth-of-type(9) {
-    top: 85px;
-    left: 55px;
-    animation-delay: 3.5s, 5.5s;
-}
-
-.flower:nth-of-type(10) {
-    top: 80px;
-    right: 50px;
-    animation-delay: 4s, 6s;
-}
-
-@keyframes florecer {
-    from {
-        transform: scale(0) rotate(-20deg);
-    }
-
-    to {
-        transform: scale(1) rotate(0);
-    }
-}
-
-@keyframes mover {
-    0%,100% {
-        rotate: -3deg;
-    }
-
-    50% {
-        rotate: 3deg;
-    }
-}
-
-.petal {
+.petalo {
     position: absolute;
-
-    width: 40px;
-    height: 55px;
-
-    left: 27px;
-    top: 20px;
-
-    border-radius:
-        50% 50% 45% 45%;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff36b,
-            #ffc400
-        );
-
+    width: 48px;
+    height: 70px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 35% 30%,
+        #fff28a,
+        #ffd21c 55%,
+        #e7a900 100%
+    );
+    left: 50%;
+    top: 50%;
+    transform-origin: 50% 100%;
     box-shadow:
-        0 0 10px rgba(255,214,30,.6);
+        inset -4px -5px 8px rgba(160,100,0,.25),
+        0 0 7px rgba(255,220,60,.5);
 }
 
-.petal:nth-child(1) {
-    transform: rotate(0) translateY(-27px);
+.petalo:nth-child(1) {
+    transform: translate(-50%, -100%) rotate(0deg);
 }
 
-.petal:nth-child(2) {
-    transform: rotate(45deg) translateY(-27px);
+.petalo:nth-child(2) {
+    transform: translate(-50%, -100%) rotate(60deg);
 }
 
-.petal:nth-child(3) {
-    transform: rotate(90deg) translateY(-27px);
+.petalo:nth-child(3) {
+    transform: translate(-50%, -100%) rotate(120deg);
 }
 
-.petal:nth-child(4) {
-    transform: rotate(135deg) translateY(-27px);
+.petalo:nth-child(4) {
+    transform: translate(-50%, -100%) rotate(180deg);
 }
 
-.petal:nth-child(5) {
-    transform: rotate(180deg) translateY(-27px);
+.petalo:nth-child(5) {
+    transform: translate(-50%, -100%) rotate(240deg);
 }
 
-.petal:nth-child(6) {
-    transform: rotate(225deg) translateY(-27px);
+.petalo:nth-child(6) {
+    transform: translate(-50%, -100%) rotate(300deg);
 }
 
-.petal:nth-child(7) {
-    transform: rotate(270deg) translateY(-27px);
-}
-
-.petal:nth-child(8) {
-    transform: rotate(315deg) translateY(-27px);
-}
-
-.center {
+.centro {
     position: absolute;
-
     width: 38px;
     height: 38px;
-
-    left: 29px;
-    top: 29px;
-
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            #8b4d00,
-            #3c1d00
-        );
-
-    z-index: 5;
+    background: radial-gradient(circle, #8c5b12, #5d3908);
+    box-shadow:
+        0 0 8px rgba(80,45,0,.7),
+        inset 0 0 7px rgba(255,220,80,.3);
 }
 
-/* =========================
-   PAPEL DEL RAMO
-========================= */
+/* Hojas */
 
-.wrap {
+.hoja {
     position: absolute;
+    width: 65px;
+    height: 30px;
+    background: linear-gradient(135deg, #62a83e, #1e652d);
+    border-radius: 100% 0 100% 0;
+    z-index: 4;
+}
 
-    left: 50%;
+.hoja.h1 {
+    left: 25%;
+    bottom: 120px;
+    transform: rotate(25deg);
+}
+
+.hoja.h2 {
+    left: 58%;
+    bottom: 145px;
+    transform: rotate(-25deg) scaleX(-1);
+}
+
+.hoja.h3 {
+    left: 37%;
+    bottom: 75px;
+    transform: rotate(45deg);
+}
+
+.hoja.h4 {
+    left: 49%;
+    bottom: 95px;
+    transform: rotate(-40deg) scaleX(-1);
+}
+
+/* Envoltura */
+
+.envoltura {
+    position: absolute;
     bottom: 0;
-
+    left: 50%;
     transform: translateX(-50%);
-
-    width: 250px;
-    height: 120px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff9e8,
-            #e7d3a5
-        );
-
-    clip-path:
-        polygon(
-            10% 0,
-            90% 0,
-            100% 100%,
-            50% 72%,
-            0 100%
-        );
-
+    width: 300px;
+    height: 150px;
+    background: linear-gradient(
+        135deg,
+        #fff0a6,
+        #e7bd35,
+        #fff0a6
+    );
+    clip-path: polygon(12% 0, 88% 0, 100% 100%, 0 100%);
     z-index: 10;
+    box-shadow: 0 -5px 20px rgba(0,0,0,.25);
 }
 
-.ribbon {
+.cinta {
     position: absolute;
-
+    bottom: 50px;
     left: 50%;
-    bottom: 42px;
-
     transform: translateX(-50%);
-
-    width: 80px;
+    width: 105px;
     height: 28px;
+    background: #d62e55;
+    border-radius: 20px;
+    z-index: 12;
+    box-shadow: 0 3px 8px rgba(0,0,0,.25);
+}
 
-    background: #d95772;
+.cinta::before,
+.cinta::after {
+    content: "";
+    position: absolute;
+    top: -22px;
+    width: 65px;
+    height: 50px;
+    border: 15px solid #d62e55;
+}
 
-    border-radius: 5px;
+.cinta::before {
+    left: -48px;
+    border-right: 0;
+    border-radius: 50% 0 0 50%;
+    transform: rotate(-20deg);
+}
 
-    z-index: 11;
+.cinta::after {
+    right: -48px;
+    border-left: 0;
+    border-radius: 0 50% 50% 0;
+    transform: rotate(20deg);
 }
 
 /* =========================
-   SUELO
-========================= */
+   MENSAJE FIJO
+   ========================= */
 
-.ground {
-    position: absolute;
-
-    bottom: 0;
-
-    width: 100%;
-    height: 18%;
-
-    background:
-        radial-gradient(
-            ellipse at center top,
-            #28552e,
-            #081b10 70%
-        );
-
-    border-radius:
-        50% 50% 0 0 /
-        15% 15% 0 0;
-}
-
-/* =========================
-   MENSAJE
-========================= */
-
-.message {
-    position: absolute;
-
-    left: 50%;
-    bottom: 3%;
-
-    transform:
-        translateX(-50%)
-        translateY(30px);
-
-    width: min(90%, 700px);
-
+.mensaje {
+    position: relative;
+    z-index: 20;
+    width: min(700px, 94%);
+    margin: 10px auto 0;
+    padding: 28px 24px;
     text-align: center;
-
-    opacity: 0;
-
-    animation:
-        mensaje 2s 6s forwards;
-
-    z-index: 30;
+    background: rgba(12, 22, 35, .78);
+    border: 1px solid rgba(255,225,100,.5);
+    border-radius: 25px;
+    box-shadow:
+        0 0 25px rgba(0,0,0,.35),
+        0 0 25px rgba(255,215,80,.12);
+    backdrop-filter: blur(5px);
 }
 
-@keyframes mensaje {
-    to {
-        opacity: 1;
-
-        transform:
-            translateX(-50%)
-            translateY(0);
-    }
+.mensaje p {
+    margin: 0;
+    font-size: clamp(1.05rem, 4vw, 1.35rem);
+    line-height: 1.8;
+    color: #fff9d5;
 }
 
-.message p {
-    font-size:
-        clamp(1rem, 3.8vw, 1.3rem);
-
-    line-height: 1.5;
-
-    text-shadow:
-        0 2px 8px black;
-}
-
-.message .love {
-    margin-top: 8px;
-
-    color: #ffe05a;
-
-    font-size:
-        clamp(1.2rem, 5vw, 1.7rem);
+.mensaje .firma {
+    margin-top: 20px;
+    color: #ffd95a;
+    font-size: clamp(1.2rem, 5vw, 1.6rem);
+    font-weight: bold;
 }
 
 /* =========================
    CORAZONES
-========================= */
+   ========================= */
 
-.heart {
+.corazon {
     position: fixed;
-
     bottom: -30px;
-
-    z-index: 60;
-
-    animation:
-        subir 7s linear forwards;
-
+    z-index: 50;
+    font-size: 22px;
     pointer-events: none;
+    animation: subir 7s linear forwards;
 }
 
 @keyframes subir {
-    from {
-        transform:
-            translateY(0)
-            rotate(0);
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
         opacity: 1;
     }
 
-    to {
-        transform:
-            translateY(-110vh)
-            rotate(360deg);
+    100% {
+        transform: translateY(-115vh) rotate(360deg);
         opacity: 0;
     }
 }
 
 /* =========================
-   SEGUNDA PANTALLA
-========================= */
+   RESPONSIVE
+   ========================= */
 
-.final-screen {
-    position: fixed;
+@media (max-width: 600px) {
 
-    inset: 0;
-
-    z-index: 200;
-
-    display: flex;
-    flex-direction: column;
-
-    justify-content: center;
-    align-items: center;
-
-    text-align: center;
-
-    padding: 30px;
-
-    background:
-        radial-gradient(
-            circle at center,
-            #293f76,
-            #070d1b 75%
-        );
-
-    opacity: 0;
-    visibility: hidden;
-
-    transition: 1.5s;
-}
-
-.final-screen.mostrar {
-    opacity: 1;
-    visibility: visible;
-}
-
-.final-screen h1 {
-    font-size:
-        clamp(2.8rem, 12vw, 5rem);
-
-    color: #ffe66b;
-
-    text-shadow:
-        0 0 15px #ffd83d,
-        0 0 40px rgba(255,210,50,.8);
-
-    animation:
-        latido 1.5s infinite;
-}
-
-@keyframes latido {
-    0%,100% {
-        transform: scale(1);
+    #escena {
+        padding-top: 20px;
     }
 
-    50% {
-        transform: scale(1.07);
-    }
-}
-
-.final-screen p {
-    margin-top: 20px;
-
-    font-size: 1.2rem;
-
-    max-width: 500px;
-
-    line-height: 1.6;
-}
-
-.music-button {
-    margin-top: 30px;
-
-    padding: 15px 30px;
-
-    border: none;
-
-    border-radius: 50px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ffe86b,
-            #ffbd00
-        );
-
-    color: #4a3200;
-
-    font-weight: bold;
-
-    font-size: 1rem;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 0 25px rgba(255,215,50,.6);
-}
-
-.small {
-    margin-top: 15px;
-
-    font-size: .9rem !important;
-
-    opacity: .75;
-}
-
-/* =========================
-   MÓVIL
-========================= */
-
-@media(max-width:500px) {
-
-    .moon {
+    .luna {
         width: 60px;
         height: 60px;
+        right: 6%;
+        top: 25px;
     }
 
-    .bouquet {
-        transform:
-            translateX(-50%)
-            scale(.82);
-
-        bottom: 16%;
+    .luna::after {
+        width: 60px;
+        height: 60px;
+        left: 18px;
+        top: -7px;
     }
 
-    .message {
-        bottom: 1%;
-        padding: 5px 12px;
+    .ramo {
+        height: 430px;
+        transform: scale(.9);
+        transform-origin: top center;
+        margin-bottom: -30px;
     }
 
-    .message p {
-        line-height: 1.35;
+    .flor {
+        width: 82px;
+        height: 82px;
+    }
+
+    .petalo {
+        width: 38px;
+        height: 56px;
+    }
+
+    .centro {
+        width: 30px;
+        height: 30px;
+    }
+
+    .envoltura {
+        width: 250px;
+        height: 125px;
+    }
+
+    .mensaje {
+        margin-top: 0;
+        padding: 24px 18px;
+    }
+
+    .mensaje p {
+        line-height: 1.7;
     }
 }
 </style>
@@ -710,32 +521,19 @@ body {
 
 <body>
 
-<!-- ESTRELLAS -->
-<div id="stars"></div>
-
-<!-- =========================
-     MÚSICA
-========================= -->
-
-<audio id="musica" preload="auto">
-    <source src="gongoli.mp3" type="audio/mpeg">
-</audio>
-
-
 <!-- =========================
      PANTALLA INICIAL
-========================= -->
+     ========================= -->
 
-<section class="start" id="start">
+<section id="inicio">
 
     <h1>Para mi Riri 💛</h1>
 
     <p>
-        Tengo algo especial<br>
-        que quiero regalarte...
+        Preparé algo especial para ti...
     </p>
 
-    <button class="boton" onclick="abrirRegalo()">
+    <button id="botonAbrir" onclick="abrirRegalo()">
         Abrir mi regalo 🌻
     </button>
 
@@ -743,303 +541,299 @@ body {
 
 
 <!-- =========================
-     ESCENA DEL RAMO
-========================= -->
+     ESCENA PRINCIPAL
+     ========================= -->
 
-<section class="scene">
+<main id="escena">
 
-    <div class="moon"></div>
+    <div class="estrellas" id="estrellas"></div>
 
-    <div class="intro">
-        <h2>Para la niña de mis ojos 💕</h2>
+    <div class="luna"></div>
+
+    <div class="titulo">
+        <h2>Para ti, mi Riri 🌻</h2>
+        <p>Un pequeño ramo para la niña que llena mi vida de color 💛</p>
     </div>
 
 
-    <div class="bouquet">
+    <!-- RAMO -->
 
-        <!-- TALLOS -->
+    <div class="ramo">
 
-        <div class="stem"></div>
-        <div class="stem"></div>
-        <div class="stem"></div>
-        <div class="stem"></div>
-        <div class="stem"></div>
+        <!-- Tallos -->
+        <div class="tallo"></div>
+        <div class="tallo"></div>
+        <div class="tallo"></div>
+        <div class="tallo"></div>
+        <div class="tallo"></div>
+        <div class="tallo"></div>
+        <div class="tallo"></div>
+        <div class="tallo"></div>
+        <div class="tallo"></div>
+        <div class="tallo"></div>
+        <div class="tallo"></div>
 
 
-        <!-- FLORES -->
-
-        <div class="flower">
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="center"></div>
+        <!-- Flor 1 -->
+        <div class="flor">
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="centro"></div>
         </div>
 
-        <div class="flower">
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="center"></div>
+        <!-- Flor 2 -->
+        <div class="flor">
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="centro"></div>
         </div>
 
-        <div class="flower">
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="center"></div>
+        <!-- Flor 3 -->
+        <div class="flor">
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="centro"></div>
         </div>
 
-        <div class="flower">
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="center"></div>
+        <!-- Flor 4 -->
+        <div class="flor">
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="centro"></div>
         </div>
 
-        <div class="flower">
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="center"></div>
+        <!-- Flor 5 -->
+        <div class="flor">
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="centro"></div>
+        </div>
+
+        <!-- Flor 6 -->
+        <div class="flor">
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="centro"></div>
+        </div>
+
+        <!-- Flor 7 -->
+        <div class="flor">
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="centro"></div>
+        </div>
+
+        <!-- Flor 8 -->
+        <div class="flor">
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="centro"></div>
+        </div>
+
+        <!-- Flor 9 -->
+        <div class="flor">
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="centro"></div>
+        </div>
+
+        <!-- Flor 10 -->
+        <div class="flor">
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="petalo"></div>
+            <div class="centro"></div>
         </div>
 
 
-        <!-- ENVOLTURA -->
+        <!-- Hojas -->
+        <div class="hoja h1"></div>
+        <div class="hoja h2"></div>
+        <div class="hoja h3"></div>
+        <div class="hoja h4"></div>
 
-        <div class="wrap"></div>
 
-        <div class="ribbon"></div>
+        <!-- Envoltura -->
+        <div class="envoltura"></div>
+        <div class="cinta"></div>
 
     </div>
-
-
-    <div class="ground"></div>
 
 
     <!-- MENSAJE -->
 
-    <div class="message">
+    <section class="mensaje">
 
         <p>
             Eres el amor de mi vida, mi niña hermosa,
             preciosa de rizos color atardecer.
             Mi Riri, te amo mucho y doy gracias al cielo
             y a la vida por tenerte.
-            Llenas de color mi vida. 🌅💛
-        </p>
-
-        <p class="love">
+            Llenas de color mi vida. 🌅💕
+            <br><br>
             Te amo, por más momentos bonitos juntos. 💕
         </p>
 
-    </div>
+        <div class="firma">
+            Siempre tú, mi Riri. ❤️
+        </div>
 
-</section>
+    </section>
+
+</main>
 
 
 <!-- =========================
-     SEGUNDA PANTALLA
-========================= -->
+     MÚSICA
+     ========================= -->
 
-<section class="final-screen" id="finalScreen">
-
-    <h1>
-        Te amo, Riri 💕
-    </h1>
-
-    <p>
-        Gracias por llenar mi vida de color,
-        amor y momentos que quiero guardar
-        para siempre.
-        🌻✨
-    </p>
-
-    <button
-        class="music-button"
-        onclick="volverEscuchar()">
-
-        🎵 Volver a escuchar GÓNGOLI
-
-    </button>
-
-    <p class="small">
-        Hecho especialmente para ti ❤️
-    </p>
-
-</section>
+<audio id="musica" loop>
+    <source src="gongoli.mp3" type="audio/mpeg">
+</audio>
 
 
 <script>
 
 /* =========================
    ESTRELLAS
-========================= */
+   ========================= */
 
-const estrellas =
-    document.getElementById("stars");
+const contenedorEstrellas = document.getElementById("estrellas");
 
-for(let i = 0; i < 100; i++){
+for (let i = 0; i < 90; i++) {
 
-    const estrella =
-        document.createElement("div");
+    const estrella = document.createElement("div");
 
-    estrella.className = "star";
+    estrella.className = "estrella";
 
-    estrella.style.left =
-        Math.random() * 100 + "%";
-
-    estrella.style.top =
-        Math.random() * 100 + "%";
+    estrella.style.left = Math.random() * 100 + "%";
+    estrella.style.top = Math.random() * 70 + "%";
 
     estrella.style.animationDelay =
-        Math.random() * 2 + "s";
+        Math.random() * 3 + "s";
 
-    estrellas.appendChild(estrella);
+    estrella.style.opacity =
+        0.2 + Math.random() * 0.8;
+
+    contenedorEstrellas.appendChild(estrella);
 }
-
-
-/* =========================
-   ELEMENTOS
-========================= */
-
-const musica =
-    document.getElementById("musica");
-
-const start =
-    document.getElementById("start");
-
-const finalScreen =
-    document.getElementById("finalScreen");
 
 
 /* =========================
    ABRIR REGALO
-========================= */
+   ========================= */
 
-function abrirRegalo(){
+function abrirRegalo() {
 
-    start.classList.add("ocultar");
+    const inicio = document.getElementById("inicio");
+    const musica = document.getElementById("musica");
+
+    inicio.classList.add("oculto");
 
     /*
-       La música comienza aquí.
-       El navegador permite reproducirla
-       porque el usuario acaba de tocar
-       el botón.
+       La canción comienza al tocar el botón.
+       No existe ningún temporizador que cambie
+       de pantalla después.
     */
 
-    musica.currentTime = 0;
+    musica.volume = 0.75;
 
-    musica.play().catch(() => {
-
-        console.log(
-            "El navegador requiere interacción para reproducir el audio."
-        );
-
+    musica.play().catch(function(error) {
+        console.log("No se pudo iniciar automáticamente:", error);
     });
 
     crearCorazones();
-
-
-    /*
-       Después de aproximadamente 16 segundos
-       aparece la pantalla final.
-    */
-
-    setTimeout(() => {
-
-        finalScreen.classList.add("mostrar");
-
-    }, 16000);
-}
-
-
-/* =========================
-   VOLVER A ESCUCHAR
-========================= */
-
-function volverEscuchar(){
-
-    musica.currentTime = 0;
-
-    musica.play();
-
 }
 
 
 /* =========================
    CORAZONES
-========================= */
+   ========================= */
 
-function crearCorazones(){
+function crearCorazon() {
 
-    setInterval(() => {
+    const corazon = document.createElement("div");
 
-        const heart =
-            document.createElement("div");
+    corazon.className = "corazon";
 
-        heart.className = "heart";
+    const corazones = [
+        "❤️",
+        "💕",
+        "💗",
+        "💛",
+        "💖",
+        "💓"
+    ];
 
-        const emojis = [
-            "💛",
-            "💕",
-            "💖",
-            "💗",
-            "✨"
-        ];
+    corazon.textContent =
+        corazones[Math.floor(Math.random() * corazones.length)];
 
-        heart.innerHTML =
-            emojis[
-                Math.floor(
-                    Math.random() * emojis.length
-                )
-            ];
+    corazon.style.left =
+        Math.random() * 100 + "vw";
 
-        heart.style.left =
-            Math.random() * 100 + "%";
+    corazon.style.fontSize =
+        (16 + Math.random() * 22) + "px";
 
-        heart.style.fontSize =
-            (15 + Math.random() * 20) + "px";
+    corazon.style.animationDuration =
+        (5 + Math.random() * 5) + "s";
 
-        heart.style.animationDuration =
-            (5 + Math.random() * 4) + "s";
+    document.body.appendChild(corazon);
 
-        document.body.appendChild(heart);
+    setTimeout(function() {
+        corazon.remove();
+    }, 10000);
+}
 
-        setTimeout(() => {
-            heart.remove();
-        }, 10000);
 
-    }, 650);
+function crearCorazones() {
 
+    setInterval(function() {
+
+        crearCorazon();
+
+    }, 900);
 }
 
 </script>
 
 </body>
 </html>
-```
