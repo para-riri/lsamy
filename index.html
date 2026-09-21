@@ -1,0 +1,1045 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para mi Riri 💛</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: Georgia, serif;
+    background:
+        radial-gradient(circle at 50% 20%, #253d70, transparent 35%),
+        linear-gradient(180deg, #081226, #111f3c 60%, #050b16);
+    color: white;
+}
+
+/* =========================
+   ESTRELLAS
+========================= */
+
+#stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: white;
+    animation: brillo 2s infinite alternate;
+}
+
+@keyframes brillo {
+    from {
+        opacity: .2;
+        transform: scale(.6);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1.4);
+    }
+}
+
+/* =========================
+   PANTALLA INICIAL
+========================= */
+
+.start {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 25px;
+
+    background:
+        radial-gradient(circle, #263e73, #060c19 75%);
+
+    transition: 1.5s;
+}
+
+.start.ocultar {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.start h1 {
+    font-size: clamp(2.3rem, 10vw, 4.5rem);
+    color: #ffe56b;
+
+    text-shadow:
+        0 0 10px #ffe56b,
+        0 0 30px #ffc400;
+
+    margin-bottom: 15px;
+}
+
+.start p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.boton {
+    border: none;
+    border-radius: 50px;
+    padding: 17px 35px;
+
+    font-size: 1.1rem;
+    font-weight: bold;
+
+    background: linear-gradient(135deg, #fff06b, #ffbd00);
+    color: #533900;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 0 15px #ffd83d,
+        0 0 40px rgba(255,210,50,.5);
+
+    transition: .3s;
+}
+
+.boton:hover {
+    transform: scale(1.08);
+}
+
+/* =========================
+   ESCENA
+========================= */
+
+.scene {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+/* Luna */
+
+.moon {
+    position: absolute;
+
+    width: 85px;
+    height: 85px;
+
+    right: 10%;
+    top: 7%;
+
+    border-radius: 50%;
+
+    background: #fff4ad;
+
+    box-shadow:
+        0 0 25px #fff4ad,
+        0 0 70px rgba(255,240,150,.5);
+}
+
+/* Texto */
+
+.intro {
+    position: absolute;
+
+    top: 8%;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 90%;
+
+    text-align: center;
+
+    opacity: 0;
+
+    animation: aparecer 2s 1s forwards;
+}
+
+.intro h2 {
+    color: #ffe66b;
+
+    font-size:
+        clamp(1.5rem, 5vw, 2.5rem);
+
+    text-shadow:
+        0 0 15px rgba(255,220,70,.8);
+}
+
+@keyframes aparecer {
+    to {
+        opacity: 1;
+    }
+}
+
+/* =========================
+   RAMO
+========================= */
+
+.bouquet {
+    position: absolute;
+
+    left: 50%;
+    bottom: 12%;
+
+    width: 330px;
+    height: 440px;
+
+    transform: translateX(-50%);
+}
+
+/* Tallos */
+
+.stem {
+    position: absolute;
+
+    bottom: 25px;
+    left: 50%;
+
+    width: 7px;
+    height: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            #174d29,
+            #55a94d,
+            #174d29
+        );
+
+    border-radius: 10px;
+
+    transform-origin: bottom;
+
+    animation: crecer 1.5s forwards;
+}
+
+.stem:nth-child(1) {
+    transform: translateX(-50%) rotate(-25deg);
+    animation-delay: .5s;
+}
+
+.stem:nth-child(2) {
+    transform: translateX(-50%) rotate(-12deg);
+    animation-delay: .8s;
+}
+
+.stem:nth-child(3) {
+    transform: translateX(-50%) rotate(0);
+    animation-delay: 1.1s;
+}
+
+.stem:nth-child(4) {
+    transform: translateX(-50%) rotate(13deg);
+    animation-delay: 1.4s;
+}
+
+.stem:nth-child(5) {
+    transform: translateX(-50%) rotate(25deg);
+    animation-delay: 1.7s;
+}
+
+@keyframes crecer {
+    to {
+        height: 330px;
+    }
+}
+
+/* =========================
+   FLORES
+========================= */
+
+.flower {
+    position: absolute;
+
+    width: 95px;
+    height: 95px;
+
+    transform: scale(0);
+
+    animation:
+        florecer 1s forwards,
+        mover 4s 5s ease-in-out infinite;
+}
+
+.flower:nth-of-type(6) {
+    top: 20px;
+    left: 15px;
+    animation-delay: 2s, 4s;
+}
+
+.flower:nth-of-type(7) {
+    top: 0;
+    left: 110px;
+    animation-delay: 2.5s, 4.5s;
+}
+
+.flower:nth-of-type(8) {
+    top: 20px;
+    right: 10px;
+    animation-delay: 3s, 5s;
+}
+
+.flower:nth-of-type(9) {
+    top: 85px;
+    left: 55px;
+    animation-delay: 3.5s, 5.5s;
+}
+
+.flower:nth-of-type(10) {
+    top: 80px;
+    right: 50px;
+    animation-delay: 4s, 6s;
+}
+
+@keyframes florecer {
+    from {
+        transform: scale(0) rotate(-20deg);
+    }
+
+    to {
+        transform: scale(1) rotate(0);
+    }
+}
+
+@keyframes mover {
+    0%,100% {
+        rotate: -3deg;
+    }
+
+    50% {
+        rotate: 3deg;
+    }
+}
+
+.petal {
+    position: absolute;
+
+    width: 40px;
+    height: 55px;
+
+    left: 27px;
+    top: 20px;
+
+    border-radius:
+        50% 50% 45% 45%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff36b,
+            #ffc400
+        );
+
+    box-shadow:
+        0 0 10px rgba(255,214,30,.6);
+}
+
+.petal:nth-child(1) {
+    transform: rotate(0) translateY(-27px);
+}
+
+.petal:nth-child(2) {
+    transform: rotate(45deg) translateY(-27px);
+}
+
+.petal:nth-child(3) {
+    transform: rotate(90deg) translateY(-27px);
+}
+
+.petal:nth-child(4) {
+    transform: rotate(135deg) translateY(-27px);
+}
+
+.petal:nth-child(5) {
+    transform: rotate(180deg) translateY(-27px);
+}
+
+.petal:nth-child(6) {
+    transform: rotate(225deg) translateY(-27px);
+}
+
+.petal:nth-child(7) {
+    transform: rotate(270deg) translateY(-27px);
+}
+
+.petal:nth-child(8) {
+    transform: rotate(315deg) translateY(-27px);
+}
+
+.center {
+    position: absolute;
+
+    width: 38px;
+    height: 38px;
+
+    left: 29px;
+    top: 29px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #8b4d00,
+            #3c1d00
+        );
+
+    z-index: 5;
+}
+
+/* =========================
+   PAPEL DEL RAMO
+========================= */
+
+.wrap {
+    position: absolute;
+
+    left: 50%;
+    bottom: 0;
+
+    transform: translateX(-50%);
+
+    width: 250px;
+    height: 120px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff9e8,
+            #e7d3a5
+        );
+
+    clip-path:
+        polygon(
+            10% 0,
+            90% 0,
+            100% 100%,
+            50% 72%,
+            0 100%
+        );
+
+    z-index: 10;
+}
+
+.ribbon {
+    position: absolute;
+
+    left: 50%;
+    bottom: 42px;
+
+    transform: translateX(-50%);
+
+    width: 80px;
+    height: 28px;
+
+    background: #d95772;
+
+    border-radius: 5px;
+
+    z-index: 11;
+}
+
+/* =========================
+   SUELO
+========================= */
+
+.ground {
+    position: absolute;
+
+    bottom: 0;
+
+    width: 100%;
+    height: 18%;
+
+    background:
+        radial-gradient(
+            ellipse at center top,
+            #28552e,
+            #081b10 70%
+        );
+
+    border-radius:
+        50% 50% 0 0 /
+        15% 15% 0 0;
+}
+
+/* =========================
+   MENSAJE
+========================= */
+
+.message {
+    position: absolute;
+
+    left: 50%;
+    bottom: 3%;
+
+    transform:
+        translateX(-50%)
+        translateY(30px);
+
+    width: min(90%, 700px);
+
+    text-align: center;
+
+    opacity: 0;
+
+    animation:
+        mensaje 2s 6s forwards;
+
+    z-index: 30;
+}
+
+@keyframes mensaje {
+    to {
+        opacity: 1;
+
+        transform:
+            translateX(-50%)
+            translateY(0);
+    }
+}
+
+.message p {
+    font-size:
+        clamp(1rem, 3.8vw, 1.3rem);
+
+    line-height: 1.5;
+
+    text-shadow:
+        0 2px 8px black;
+}
+
+.message .love {
+    margin-top: 8px;
+
+    color: #ffe05a;
+
+    font-size:
+        clamp(1.2rem, 5vw, 1.7rem);
+}
+
+/* =========================
+   CORAZONES
+========================= */
+
+.heart {
+    position: fixed;
+
+    bottom: -30px;
+
+    z-index: 60;
+
+    animation:
+        subir 7s linear forwards;
+
+    pointer-events: none;
+}
+
+@keyframes subir {
+    from {
+        transform:
+            translateY(0)
+            rotate(0);
+        opacity: 1;
+    }
+
+    to {
+        transform:
+            translateY(-110vh)
+            rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* =========================
+   SEGUNDA PANTALLA
+========================= */
+
+.final-screen {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 200;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    padding: 30px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #293f76,
+            #070d1b 75%
+        );
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: 1.5s;
+}
+
+.final-screen.mostrar {
+    opacity: 1;
+    visibility: visible;
+}
+
+.final-screen h1 {
+    font-size:
+        clamp(2.8rem, 12vw, 5rem);
+
+    color: #ffe66b;
+
+    text-shadow:
+        0 0 15px #ffd83d,
+        0 0 40px rgba(255,210,50,.8);
+
+    animation:
+        latido 1.5s infinite;
+}
+
+@keyframes latido {
+    0%,100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.07);
+    }
+}
+
+.final-screen p {
+    margin-top: 20px;
+
+    font-size: 1.2rem;
+
+    max-width: 500px;
+
+    line-height: 1.6;
+}
+
+.music-button {
+    margin-top: 30px;
+
+    padding: 15px 30px;
+
+    border: none;
+
+    border-radius: 50px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffe86b,
+            #ffbd00
+        );
+
+    color: #4a3200;
+
+    font-weight: bold;
+
+    font-size: 1rem;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 0 25px rgba(255,215,50,.6);
+}
+
+.small {
+    margin-top: 15px;
+
+    font-size: .9rem !important;
+
+    opacity: .75;
+}
+
+/* =========================
+   MÓVIL
+========================= */
+
+@media(max-width:500px) {
+
+    .moon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .bouquet {
+        transform:
+            translateX(-50%)
+            scale(.82);
+
+        bottom: 16%;
+    }
+
+    .message {
+        bottom: 1%;
+        padding: 5px 12px;
+    }
+
+    .message p {
+        line-height: 1.35;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ESTRELLAS -->
+<div id="stars"></div>
+
+<!-- =========================
+     MÚSICA
+========================= -->
+
+<audio id="musica" preload="auto">
+    <source src="gongoli.mp3" type="audio/mpeg">
+</audio>
+
+
+<!-- =========================
+     PANTALLA INICIAL
+========================= -->
+
+<section class="start" id="start">
+
+    <h1>Para mi Riri 💛</h1>
+
+    <p>
+        Tengo algo especial<br>
+        que quiero regalarte...
+    </p>
+
+    <button class="boton" onclick="abrirRegalo()">
+        Abrir mi regalo 🌻
+    </button>
+
+</section>
+
+
+<!-- =========================
+     ESCENA DEL RAMO
+========================= -->
+
+<section class="scene">
+
+    <div class="moon"></div>
+
+    <div class="intro">
+        <h2>Para la niña de mis ojos 💕</h2>
+    </div>
+
+
+    <div class="bouquet">
+
+        <!-- TALLOS -->
+
+        <div class="stem"></div>
+        <div class="stem"></div>
+        <div class="stem"></div>
+        <div class="stem"></div>
+        <div class="stem"></div>
+
+
+        <!-- FLORES -->
+
+        <div class="flower">
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="center"></div>
+        </div>
+
+        <div class="flower">
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="center"></div>
+        </div>
+
+        <div class="flower">
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="center"></div>
+        </div>
+
+        <div class="flower">
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="center"></div>
+        </div>
+
+        <div class="flower">
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="center"></div>
+        </div>
+
+
+        <!-- ENVOLTURA -->
+
+        <div class="wrap"></div>
+
+        <div class="ribbon"></div>
+
+    </div>
+
+
+    <div class="ground"></div>
+
+
+    <!-- MENSAJE -->
+
+    <div class="message">
+
+        <p>
+            Eres el amor de mi vida, mi niña hermosa,
+            preciosa de rizos color atardecer.
+            Mi Riri, te amo mucho y doy gracias al cielo
+            y a la vida por tenerte.
+            Llenas de color mi vida. 🌅💛
+        </p>
+
+        <p class="love">
+            Te amo, por más momentos bonitos juntos. 💕
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SEGUNDA PANTALLA
+========================= -->
+
+<section class="final-screen" id="finalScreen">
+
+    <h1>
+        Te amo, Riri 💕
+    </h1>
+
+    <p>
+        Gracias por llenar mi vida de color,
+        amor y momentos que quiero guardar
+        para siempre.
+        🌻✨
+    </p>
+
+    <button
+        class="music-button"
+        onclick="volverEscuchar()">
+
+        🎵 Volver a escuchar GÓNGOLI
+
+    </button>
+
+    <p class="small">
+        Hecho especialmente para ti ❤️
+    </p>
+
+</section>
+
+
+<script>
+
+/* =========================
+   ESTRELLAS
+========================= */
+
+const estrellas =
+    document.getElementById("stars");
+
+for(let i = 0; i < 100; i++){
+
+    const estrella =
+        document.createElement("div");
+
+    estrella.className = "star";
+
+    estrella.style.left =
+        Math.random() * 100 + "%";
+
+    estrella.style.top =
+        Math.random() * 100 + "%";
+
+    estrella.style.animationDelay =
+        Math.random() * 2 + "s";
+
+    estrellas.appendChild(estrella);
+}
+
+
+/* =========================
+   ELEMENTOS
+========================= */
+
+const musica =
+    document.getElementById("musica");
+
+const start =
+    document.getElementById("start");
+
+const finalScreen =
+    document.getElementById("finalScreen");
+
+
+/* =========================
+   ABRIR REGALO
+========================= */
+
+function abrirRegalo(){
+
+    start.classList.add("ocultar");
+
+    /*
+       La música comienza aquí.
+       El navegador permite reproducirla
+       porque el usuario acaba de tocar
+       el botón.
+    */
+
+    musica.currentTime = 0;
+
+    musica.play().catch(() => {
+
+        console.log(
+            "El navegador requiere interacción para reproducir el audio."
+        );
+
+    });
+
+    crearCorazones();
+
+
+    /*
+       Después de aproximadamente 16 segundos
+       aparece la pantalla final.
+    */
+
+    setTimeout(() => {
+
+        finalScreen.classList.add("mostrar");
+
+    }, 16000);
+}
+
+
+/* =========================
+   VOLVER A ESCUCHAR
+========================= */
+
+function volverEscuchar(){
+
+    musica.currentTime = 0;
+
+    musica.play();
+
+}
+
+
+/* =========================
+   CORAZONES
+========================= */
+
+function crearCorazones(){
+
+    setInterval(() => {
+
+        const heart =
+            document.createElement("div");
+
+        heart.className = "heart";
+
+        const emojis = [
+            "💛",
+            "💕",
+            "💖",
+            "💗",
+            "✨"
+        ];
+
+        heart.innerHTML =
+            emojis[
+                Math.floor(
+                    Math.random() * emojis.length
+                )
+            ];
+
+        heart.style.left =
+            Math.random() * 100 + "%";
+
+        heart.style.fontSize =
+            (15 + Math.random() * 20) + "px";
+
+        heart.style.animationDuration =
+            (5 + Math.random() * 4) + "s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 10000);
+
+    }, 650);
+
+}
+
+</script>
+
+</body>
+</html>
+```
